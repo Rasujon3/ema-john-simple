@@ -96,6 +96,7 @@ export const handleGoogleSignIn=()=>{
         //   console.log(res);
           udpateUserName(name);
         //   history.replace(from);
+          verifyEmail();
           return newUserInfo;
       
           // var user = res.user;
@@ -147,3 +148,26 @@ export const handleGoogleSignIn=()=>{
           console.log(error);
         });  
       }
+
+      const verifyEmail = () => {
+        var user = firebase.auth().currentUser;
+
+        user.sendEmailVerification()
+          .then(function() {
+            // Email verification sent!
+            // ...
+          }).catch(function(error){
+            // An error happended
+        });
+      }
+
+export const resetPassword = email =>{
+  var auth = firebase.auth();
+
+  auth.sendPasswordResetEmail(email)
+          .then(function() {
+            // Email sent!
+          }).catch(function(error){
+            // An error happended
+        });
+}
